@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  research-chatbot:
+    build: .
+    container_name: research-chatbot
+    ports:
+      - "8501:8501"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4-turbo-preview}
+      - SCHOLAR_API_KEY=${SCHOLAR_API_KEY}
+      - SCHOLAR_SEARCH_ENGINE_ID=${SCHOLAR_SEARCH_ENGINE_ID}
+      - MAX_RESULTS=${MAX_RESULTS:-10}
+      - MAX_TOKENS=${MAX_TOKENS:-4000}
+      - TEMPERATURE=${TEMPERATURE:-0.3}
+      - VECTOR_DB_PATH=/app/data/chroma_db
+      - EMBEDDING_MODEL=${EMBEDDING_MODEL:-sentence-transformers/all-MiniLM-L6-v2}
+      - CACHE_DIR=/app/cache
+      - CACHE_EXPIRY_HOURS=${CACHE_EXPIRY_HOURS:-24}
+    volumes:
+      - ./data:/app/data
+      - ./cache:/app/cache
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

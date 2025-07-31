@@ -1,0 +1,54 @@
+.PHONY: help build run stop clean test lint format install dev-install
+
+help:
+	@echo "Available commands:"
+	@echo "  build        - Build Docker image"
+	@echo "  run          - Run the application with Docker Compose"
+	@echo "  stop         - Stop the application"
+	@echo "  clean        - Clean up containers and volumes"
+	@echo "  test         - Run tests"
+	@echo "  lint         - Run linting"
+	@echo "  format       - Format code"
+	@echo "  install      - Install dependencies"
+	@echo "  dev-install  - Install development dependencies"
+	@echo "  local-run    - Run locally without Docker"
+
+build:
+	docker-compose build
+
+run:
+	docker-compose up -d
+
+stop:
+	docker-compose down
+
+clean:
+	docker-compose down -v --rmi all
+	docker system prune -f
+
+test:
+	python -m pytest tests/ -v
+
+lint:
+	flake8 *.py
+	mypy *.py
+
+format:
+	black *.py
+	isort *.py
+
+install:
+	pip install -r requirements.txt
+
+dev-install:
+	pip install -r requirements.txt
+	pip install -e ".[dev]"
+
+local-run:
+	streamlit run app.py
+
+setup:
+	@echo "Setting up the research chatbot..."
+	@if [ ! -f .env ]; then cp .env.example .env; echo "Created .env file - please update with your API keys"; fi
+	@mkdir -p data cache logs
+	@echo "Setup complete! Please update .env with your API keys and run 'make run'"
