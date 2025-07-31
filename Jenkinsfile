@@ -14,13 +14,14 @@ pipeline {
                     // Check Python installation and install dependencies
                     bat '''
                         echo Checking Python installation...
-                        python --version || py --version || python3 --version
+                        set PYTHON_PATH=C:\Users\bipla\AppData\Local\Microsoft\WindowsApps\python.exe
+                        %PYTHON_PATH% --version
                         
                         echo Creating virtual environment...
-                        python -m venv .venv || py -m venv .venv || python3 -m venv .venv
+                        %PYTHON_PATH% -m venv venv
                         
                         echo Activating virtual environment and installing dependencies...
-                        call .venv/Scripts/activate.bat
+                        call venv\Scripts\activate.bat
                         python -m pip install --upgrade pip
                         pip install -r requirements.txt
                     '''
@@ -32,7 +33,7 @@ pipeline {
                 script {
                     // Run unit tests
                     bat '''
-                        call .venv/Scripts/activate.bat
+                        call venv\Scripts\activate.bat
                         pytest tests || echo "Tests completed with exit code %ERRORLEVEL%"
                     '''
                 }
@@ -43,7 +44,7 @@ pipeline {
                 script {
                     // Perform health check
                     bat '''
-                        call .venv/Scripts/activate.bat
+                        call venv\Scripts\activate.bat
                         python health_check.py || echo "Health check completed with exit code %ERRORLEVEL%"
                     '''
                 }
@@ -54,7 +55,7 @@ pipeline {
                 script {
                     // Launch the application
                     bat '''
-                        call .venv/Scripts/activate.bat
+                        call venv\Scripts\activate.bat
                         echo Starting Streamlit application...
                         streamlit run app.py --server.port=8501 --server.address=0.0.0.0 --server.headless=true --server.fileWatcherType=none
                     '''
