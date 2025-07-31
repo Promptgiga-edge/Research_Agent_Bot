@@ -2,8 +2,7 @@ FROM python:3.11-slim as builder
 
 # Install build dependencies
 RUN apt-get update && apt-get install -y \
-    gcc \
-    g++ \
+    gcc g++ \
     && rm -rf /var/lib/apt/lists/*
 
 # Create virtual environment
@@ -11,7 +10,7 @@ RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
 # Copy and install Python dependencies
-COPY requirements.txt .
+COPY requirements.txt ./
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
@@ -21,10 +20,9 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Install runtime dependencies only
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
-    && rm -rf /var/lib/apt/lists/* \
-    && apt-get clean
+    && rm -rf /var/lib/apt/lists/* && apt-get clean
 
 # Copy virtual environment from builder
 COPY --from=builder /opt/venv /opt/venv
@@ -35,7 +33,8 @@ RUN adduser --disabled-password --gecos '' --uid 1000 appuser
 
 # Create necessary directories with proper permissions
 RUN mkdir -p /app/data /app/cache /app/logs && \
-    chown -R appuser:appuser /app
+    chown -R appuser:appuser /app && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Copy application code
 COPY --chown=appuser:appuser . .
