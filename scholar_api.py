@@ -97,30 +97,3 @@ class GoogleScholarAPI:
                 
         return results
 
-    def refine_query(self, user_query: str) -> str:
-        """
-        Refine user query for better academic search results
-        
-        Args:
-            user_query: Raw user query
-            
-        Returns:
-            Refined query optimized for academic search
-        """
-        # Add academic keywords and filters
-        academic_keywords = [
-            'research', 'study', 'analysis', 'survey', 'review',
-            'methodology', 'algorithm', 'model', 'framework'
-        ]
-        
-        # Check if query already contains academic terms
-        query_lower = user_query.lower()
-        has_academic_terms = any(keyword in query_lower for keyword in academic_keywords)
-        
-        if not has_academic_terms:
-            # Add relevant academic context
-            refined_query = f"{user_query} research study"
-        else:
-            refined_query = user_query
-            
-        return refined_query

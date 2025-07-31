@@ -1,4 +1,6 @@
+# ======================
 # Python
+# ======================
 __pycache__/
 *.py[cod]
 *$py.class
@@ -16,47 +18,86 @@ parts/
 sdist/
 var/
 wheels/
+share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
 MANIFEST
 
+# ======================
 # Virtual Environment
+# ======================
 .venv/
+venv/
 env/
 ENV/
 env.bak/
 venv.bak/
+pip-selfcheck.json
 
-# IDE
+# ======================
+# IDE and Editors
+# ======================
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
+.project
+.pydevproject
+.spyderproject
+.spyproject
+.ropeproject
 
+# ======================
 # Environment Variables
+# ======================
 .env
 .env.local
+.env.development
 .env.production
+.env.staging
+.env.test
+.env.backup
 
+# ======================
 # Application Data
+# ======================
 data/
 cache/
 logs/
 chroma_db/
+vector_db/
+test_empty_db/
 *.log
+*.log.*
 
+# ======================
 # Temporary files
+# ======================
 *.tmp
 *.temp
+*.bak
+*.backup
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+desktop.ini
 
+# ======================
 # Docker
+# ======================
 .dockerignore
+docker-compose.override.yml
+.docker/
 
+# ======================
 # Testing
+# ======================
 .pytest_cache/
 .coverage
 htmlcov/
@@ -64,20 +105,95 @@ htmlcov/
 .nox/
 coverage.xml
 *.cover
+*.py,cover
 .hypothesis/
+.cache
+nosetests.xml
+test-results.xml
+junit.xml
 
+# ======================
 # Jupyter Notebook
+# ======================
 .ipynb_checkpoints
+*.ipynb
 
+# ======================
 # Documentation
+# ======================
 docs/_build/
+.readthedocs.yml
+site/
 
-# Model files and large data
+# ======================
+# Model files and ML data
+# ======================
 *.model
 *.bin
 *.h5
+*.hdf5
 *.pkl
 *.pickle
+*.joblib
+*.onnx
+*.pt
+*.pth
+*.safetensors
+checkpoints/
+models/
+weights/
 
+# ======================
 # Streamlit
+# ======================
 .streamlit/
+
+# ======================
+# Database files
+# ======================
+*.db
+*.sqlite
+*.sqlite3
+
+# ======================
+# Archives
+# ======================
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# ======================
+# OS generated files
+# ======================
+*.pid
+*.seed
+*.pid.lock
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ======================
+# Security
+# ======================
+*.pem
+*.key
+*.crt
+*.cert
+secrets/
+credentials/
+
+# ======================
+# Large files and datasets
+# ======================
+*.csv
+*.json
+*.parquet
+*.feather
+files/
+downloads/
+uploads/
