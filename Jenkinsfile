@@ -12,9 +12,9 @@ pipeline {
             steps {
                 script {
                     // Install dependencies
-                    sh 'python -m venv venv'
-                    sh 'source venv/bin/activate && pip install --upgrade pip'
-                    sh 'source venv/bin/activate && pip install -r requirements.txt'
+                    bat 'python -m venv venv'
+                    bat 'venv\\Scripts\\activate.bat && pip install --upgrade pip'
+                    bat 'venv\\Scripts\\activate.bat && pip install -r requirements.txt'
                 }
             }
         }
@@ -22,7 +22,7 @@ pipeline {
             steps {
                 script {
                     // Run unit tests
-                    sh 'source venv/bin/activate && pytest tests'
+                    bat 'venv\\Scripts\\activate.bat && pytest tests'
                 }
             }
         }
@@ -30,7 +30,7 @@ pipeline {
             steps {
                 script {
                     // Perform health check
-                    sh 'source venv/bin/activate && python health_check.py'
+                    bat 'venv\\Scripts\\activate.bat && python health_check.py'
                 }
             }
         }
@@ -38,7 +38,7 @@ pipeline {
             steps {
                 script {
                     // Launch the application
-                    sh 'source venv/bin/activate && streamlit run app.py --server.port=8501 --server.address=0.0.0.0 --server.headless=true --server.fileWatcherType=none'
+                    bat 'venv\\Scripts\\activate.bat && streamlit run app.py --server.port=8501 --server.address=0.0.0.0 --server.headless=true --server.fileWatcherType=none'
                 }
             }
         }
