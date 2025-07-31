@@ -13,7 +13,7 @@ pipeline {
                 script {
                     // Check Python installation and install dependencies
                     bat '''
-                        echo cd
+                        cd
                         echo Checking Python installation...
                         set PYTHON_PATH=C:\\Users\\bipla\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe
                         %PYTHON_PATH% --version
