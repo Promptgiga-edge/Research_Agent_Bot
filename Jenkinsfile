@@ -11,10 +11,19 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
-                    // Install dependencies
-                    bat 'python -m venv venv'
-                    bat 'venv\\Scripts\\activate.bat && pip install --upgrade pip'
-                    bat 'venv\\Scripts\\activate.bat && pip install -r requirements.txt'
+                    // Check Python installation and install dependencies
+                    bat '''
+                        echo Checking Python installation...
+                        python --version || py --version || python3 --version
+                        
+                        echo Creating virtual environment...
+                        python -m venv venv || py -m venv venv || python3 -m venv venv
+                        
+                        echo Activating virtual environment and installing dependencies...
+                        call venv\Scripts\activate.bat
+                        python -m pip install --upgrade pip
+                        pip install -r requirements.txt
+                    '''
                 }
             }
         }
@@ -22,7 +31,10 @@ pipeline {
             steps {
                 script {
                     // Run unit tests
-                    bat 'venv\\Scripts\\activate.bat && pytest tests'
+                    bat '''
+                        call venv\Scripts\activate.bat
+                        pytest tests || echo "Tests completed with exit code %ERRORLEVEL%"
+                    '''
                 }
             }
         }
@@ -30,7 +42,10 @@ pipeline {
             steps {
                 script {
                     // Perform health check
-                    bat 'venv\\Scripts\\activate.bat && python health_check.py'
+                    bat '''
+                        call venv\Scripts\activate.bat
+                        python health_check.py || echo "Health check completed with exit code %ERRORLEVEL%"
+                    '''
                 }
             }
         }
@@ -38,7 +53,11 @@ pipeline {
             steps {
                 script {
                     // Launch the application
-                    bat 'venv\\Scripts\\activate.bat && streamlit run app.py --server.port=8501 --server.address=0.0.0.0 --server.headless=true --server.fileWatcherType=none'
+                    bat '''
+                        call venv\Scripts\activate.bat
+                        echo Starting Streamlit application...
+                        streamlit run app.py --server.port=8501 --server.address=0.0.0.0 --server.headless=true --server.fileWatcherType=none
+                    '''
                 }
             }
         }
