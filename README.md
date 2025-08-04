@@ -5,7 +5,7 @@ An intelligent research assistant that helps you find, analyze, and synthesize i
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-red.svg)
 ![LangChain](https://img.shields.io/badge/LangChain-0.0.350+-green.svg)
-![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4-orange.svg)
+![Gemini](https://img.shields.io/badge/Gemini-2.5--flash-blue.svg)
 
 ## 🌟 Features
 
@@ -34,7 +34,8 @@ The Research Agent is built using a **LangGraph-based workflow** that orchestrat
 ### Prerequisites
 
 - Python 3.8 or higher
-- OpenAI API key
+- GEMINI API key
+- SERP API Key for google scholar
 - Git
 
 ### Installation
@@ -42,7 +43,7 @@ The Research Agent is built using a **LangGraph-based workflow** that orchestrat
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd Research_Agent
+   cd Research_Agent_Bot
    ```
 
 2. **Create a virtual environment**
@@ -64,8 +65,9 @@ The Research Agent is built using a **LangGraph-based workflow** that orchestrat
 4. **Set up environment variables**
    Create a `.env` file in the project root:
    ```env
-   OPENAI_API_KEY=your_openai_api_key_here
-   OPENAI_MODEL=gpt-4
+   GEMINI_API_KEY=your_gemini_api_key_here
+   GEMINI_MODEL=gemini-2.5-flash
+   SERPAPI_KEY=your_serp_api_key_here   ## SerpAPI Key for Google Scholar
    TEMPERATURE=0.1
    MAX_TOKENS=4000
    MAX_RESULTS=10
@@ -101,7 +103,7 @@ Research_Agent/
 ├── dockerfile                  # Docker container definition
 ├── document_processor.py       # PDF processing and text extraction
 ├── health_check.py             # System health monitoring
-├── logging_config.py.py        # Logging configuration
+├── logging_config.py           # Logging configuration
 ├── Makerfile                   # Make commands
 ├── requirements.txt            # Python dependencies
 ├── research_agent.py           # Main agent logic with LangGraph
@@ -137,8 +139,9 @@ Key configuration options in your `.env` file:
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `OPENAI_API_KEY` | Your OpenAI API key | Required |
-| `OPENAI_MODEL` | OpenAI model to use | `gpt-4` |
+| `GEMINI_API_KEY` | Your GEMINI API key | Required |
+| `GEMINI_MODEL` | GEMINI model to use | `gemini-2.5-flash` |
+| `SERP_API_KEY` | Your SERP API key for google scholar | Required |
 | `TEMPERATURE` | Response creativity (0.0-1.0) | `0.1` |
 | `MAX_RESULTS` | Maximum papers to analyze | `10` |
 | `CACHE_DIR` | Directory for cached documents | `./files` |
@@ -180,7 +183,7 @@ The application includes built-in health monitoring and system statistics:
 
 - **Document Statistics**: Total documents, unique papers, processing status
 - **Vector Store Metrics**: Storage utilization, search performance
-- **API Health**: OpenAI API status, rate limiting information
+- **API Health**: GEMINI API status, SERP API status, rate limiting information
 - **Error Tracking**: Comprehensive error logging and reporting
 
 Access health check endpoint:
@@ -212,7 +215,7 @@ Key dependencies and their purposes:
 - **LangChain**: Framework for building LLM applications
 - **LangGraph**: Orchestration of multi-step AI workflows
 - **Streamlit**: Web application framework
-- **OpenAI**: Language model API
+- **GEMINI**: Language model API
 - **ChromaDB**: Vector database for document storage
 - **Beautiful Soup**: Web scraping and HTML parsing
 - **PyPDF2**: PDF processing and text extraction
