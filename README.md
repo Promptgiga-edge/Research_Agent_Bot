@@ -131,22 +131,6 @@ Research_Agent/
    - Visual statistics and system status
    - Chat history for context
 
-### Python API
-
-```python
-from research_agent import ResearchAgent
-import asyncio
-
-# Initialize the agent
-agent = ResearchAgent()
-
-# Ask a research question
-result = asyncio.run(agent.research("What are the latest developments in transformer architectures?"))
-
-print(result['final_answer'])
-print(f"Sources: {len(result['search_results'])} papers analyzed")
-```
-
 ## 🔧 Configuration
 
 Key configuration options in your `.env` file:
@@ -211,22 +195,6 @@ python health_check.py
 1. Install development dependencies:
    ```bash
    pip install -r requirements.txt
-   pip install pytest pytest-cov black flake8
-   ```
-
-2. Run the development notebook:
-   ```bash
-   jupyter notebook dev.ipynb
-   ```
-
-3. Format code:
-   ```bash
-   black .
-   ```
-
-4. Lint code:
-   ```bash
-   flake8 .
    ```
 
 ### Making Changes
@@ -236,38 +204,6 @@ python health_check.py
 3. Add tests for new functionality
 4. Run the test suite
 5. Submit a pull request
-
-## 🤝 Contributing
-
-Contributions are welcome! Please read our contributing guidelines and submit pull requests for any improvements.
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🙋‍♂️ Support
-
-If you encounter any issues or have questions:
-
-1. Check the [Issues](../../issues) page
-2. Create a new issue with detailed information
-3. Include error logs and system information
-
-## 🔮 Roadmap
-
-- [ ] Support for more academic databases (PubMed, arXiv, etc.)
-- [ ] Advanced citation analysis and paper relationships
-- [ ] Integration with reference management tools
-- [ ] Multi-language support
-- [ ] Enhanced visualization and analytics
-- [ ] Collaborative research features
-- [ ] Mobile-responsive interface improvements
 
 ## 📚 Dependencies
 
@@ -282,6 +218,9 @@ Key dependencies and their purposes:
 - **PyPDF2**: PDF processing and text extraction
 - **Sentence Transformers**: Text embedding models
 
----
+## 📄 License
 
-Built with ❤️ using LangGraph, LangChain, and Streamlit
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+
+
